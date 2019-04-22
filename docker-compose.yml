@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  #########################################################################
+  # substrate
+  #########################################################################
+  substrate:
+    build:
+      context: .
+      dockerfile: ./docker/substrate/Dockerfile
+    stdin_open: true
+    tty: true
+    command: bash -c "touch d.txt && tail -f d.txt"
+
+  #########################################################################
+  # rust
+  #########################################################################
+  rust:
+    build:
+      context: .
+      dockerfile: ./docker/rust/Dockerfile
+    volumes:
+      - ./src/hello_world:/app
+    stdin_open: true
+    tty: true
+#    command: rustc main.rs && ./main
+    command: bash -c "touch /app/d.txt && tail -f /app/d.txt"
