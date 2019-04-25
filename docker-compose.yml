@@ -19,9 +19,11 @@ services:
     build:
       context: .
       dockerfile: ./docker/rust/Dockerfile
+    environment:
+      - USER=$USER
     volumes:
-      - ./src/hello_world:/app
+      - ./app/:/app
     stdin_open: true
     tty: true
-#    command: rustc main.rs && ./main
-    command: bash -c "touch /app/d.txt && tail -f /app/d.txt"
+#    command: bash -c "rustc main.rs && ./main"
+    command: bash -c "touch /d.txt && tail -f /d.txt"

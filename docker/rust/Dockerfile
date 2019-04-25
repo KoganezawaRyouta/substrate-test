@@ -1,8 +1,12 @@
-FROM rust:1.33.0
+FROM ubuntu:16.04
 
-RUN apt-get update && \
-    apt-get install -y libusb-1.0-0-dev libudev-dev cmake make gcc g++ pkg-config file
+RUN \
+  apt-get update && \
+  apt-get -y install make git bash curl unzip build-essential && \
+  apt-get update
 
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN echo 'source $HOME/.cargo/env' >> ~/.bashrc
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
